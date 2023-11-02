@@ -33,7 +33,7 @@ router.get(endpoint + "/:productId", function (req, res) {
     .get(id)
     .then((data) => {
       if (data) res.status(200).json(data);
-      else res.status(404).json({ error: `database item ${id} not found` });
+      else res.status(404).json({ error: `record ${id} not found` });
     })
     .catch((err) => {
       res.status(500).json({
@@ -66,10 +66,19 @@ router.delete(endpoint + "/:productId", (req, res) => {
 });
 
 // PUT: Update one product
-router.put(endpoint + "/:id", (req, res) => {
-  res.set("pending", "@TODO: PUT");
-  console.log("@TODO: PUT: ");
-  res.status(202).json(req.body);
+router.put(endpoint + "/:productId", (req, res) => {
+  const id = parseInt(req.params.productId);
+  product
+    .update(id, req.body)
+    .then((count) => {
+      if (count >= 1) res.status(201).json({ updated: count });
+      else res.status(404).json({ error: `record ${id} not found` });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Erro ao alterar produto: " + err.message,
+      });
+    });
 });
 
 module.exports = router;
