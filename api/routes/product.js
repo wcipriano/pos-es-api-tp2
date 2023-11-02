@@ -4,7 +4,7 @@ let router = express.Router();
 const endpoint = "/produtos";
 router.use(express.json());
 
-const Product = require("../../database/produto");
+const Product = require("../../database/product");
 const product = new Product();
 
 //Default routs and param validation

@@ -4,8 +4,10 @@ const cors = require("cors");
 const path = require("path");
 const app = express();
 
-const router = require("./api/routes/router");
-app.use("/api", router);
+const router_prd = require("./api/routes/product");
+const router_sec = require("./api/routes/security");
+app.use("/api", router_prd);
+app.use("/api", router_sec);
 
 app.use(cors());
 app.use(express.json());
