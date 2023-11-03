@@ -80,7 +80,7 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 
 ## REFS:
 
-- http://restify.com/docs/home/
-- https://blog.risingstack.com/10-best-practices-for-writing-node-js-rest-apis#7useconditionalrequests
-- https://github.com/FaztWeb/restify-crud/blob/master/src/app.js
-- https://restfulapi.net/http-methods/
+- [10 Best Practices for Writing Node.js REST APIs](https://blog.risingstack.com/10-best-practices-for-writing-node-js-rest-apis#7useconditionalrequests)
+- [HTTP Methods](https://restfulapi.net/http-methods/)
+- [How to secure a REST API using JWT authentication](https://blog.logrocket.com/secure-rest-api-jwt-authentication/)
+-
