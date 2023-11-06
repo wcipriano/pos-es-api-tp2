@@ -7,7 +7,7 @@ Pos-graduação Especialização em Engenharia de Software - PucMG - APIs e Webs
 Nomes e cód pessoa
 
 1. Wager Cipriano - 993540
-1.
+1. Lucas Willian - 1116622
 1.
 1.
 
