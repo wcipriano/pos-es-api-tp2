@@ -46,6 +46,20 @@ O banco de dados foi implementado no Postgresql, versão 15, está hospedado no 
 
 - Get all Products: https://pos-es-api-tp2.onrender.com/api/produtos
 - Get Product by Id: https://pos-es-api-tp2.onrender.com/api/produtos/:Id
+- Get Avaliations by product ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/:productId
+- Get Avaliations by user ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/user/:userId
+- Get Avaliations by user ID within a product: https://pos-es-api-tp2.onrender.com/api/avaliacao/:userId/:productId
+
+## Resources Endpoints POST
+- Create Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao
+- - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 150}
+
+## Resources Endpoints DELETE
+- Delete Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
+
+## Resources Endpoints PUT
+- Update Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
+- - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 15}
 
 ## RESTFull API
 
@@ -101,7 +115,7 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 - [x] Autenticação e autorização
 - [x] API REST - operações CRUD - base com a tabela de produtos e usuários/autenticação
 - [ ] Resource Categorias \*
-- [ ] Resource Avaliações \*
+- [x] Resource Avaliações \*
 
 - [ ] OpenAPI Specification: Swagger.
       $\color{gray}{OBS.:\ Tem\ exemplo\ na\ aula\ do\ dia\ 01/11,\ a\ partir\ do\ time\ 3:05:00,\ disponivel\ }$ [neste link](https://bit.ly/3QHrPO3).
@@ -123,4 +137,3 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 - [HTTP Methods](https://restfulapi.net/http-methods/)
 - [How to secure a REST API using JWT authentication](https://blog.logrocket.com/secure-rest-api-jwt-authentication/)
 - [Knex Query Builder](https://knexjs.org/guide/query-builder.html)
--
