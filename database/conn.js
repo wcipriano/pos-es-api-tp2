@@ -6,7 +6,7 @@ const dbc = require("knex")({
   debug: false,
   connection: {
     connectionString: db_url,
-    ssl: { rejectUnauthorized: false },
+    ssl: false,
   },
 });
 
