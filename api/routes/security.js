@@ -50,7 +50,6 @@ router.post(endpoint + "/login", function (req, res) {
   .get_by_login(req.body.login)
   .then((dbuser) => {
     if (dbuser) {
-        console.log(req.body.senha)
         const checkSenha = bcrypt.compareSync(req.body.senha, dbuser.senha);
         if (checkSenha) {
           const user_data = { id: dbuser.id, roles: dbuser.roles };
