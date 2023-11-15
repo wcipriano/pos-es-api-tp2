@@ -8,50 +8,56 @@ CREATE TABLE
         descricao varchar(200) NOT NULL,
         valor numeric NOT NULL DEFAULT 0,
         marca varchar(100) NULL,
-        CONSTRAINT produto_pk PRIMARY KEY (id)
+        categoriaid int NOT NULL,
+        CONSTRAINT produto_pk PRIMARY KEY (id),
+        CONSTRAINT categoria_fk FOREIGN KEY (categoriaid) REFERENCES categoria(id)
     );
 
 CREATE UNIQUE INDEX produto_id_idx ON public.produto USING btree (id);
 
 INSERT INTO
-    produto (descricao, valor, marca)
+    produto (descricao, valor, marca, categoriaid)
 VALUES (
         'Arroz parboilizado 5Kg',
         25,
-        'Tio João'
+        'Tio João',
+        1
     );
 
 INSERT INTO
-    produto (descricao, valor, marca)
+    produto (descricao, valor, marca, categoriaid)
 VALUES (
         'Maionese 250gr',
         7.2,
-        'Helmanns'
+        'Helmanns',
+        2
     );
 
 INSERT INTO
-    produto (descricao, valor, marca)
+    produto (descricao, valor, marca, categoriaid)
 VALUES (
         'Iogurte Natural 200ml',
         2.5,
         'Itambé'
+        3
     );
 
 INSERT INTO
-    produto (descricao, valor, marca)
-VALUES ('Nescau 400gr', 8, 'Nestlé');
+    produto (descricao, valor, marca, categoriaid)
+VALUES ('Nescau 400gr', 8, 'Nestlé', 4);
 
 INSERT INTO
-    produto (descricao, valor, marca)
+    produto (descricao, valor, marca, categoriaid)
 VALUES (
         'Batata Palha 180gr',
         5.20,
-        'Chipps'
+        'Chipps',
+        5
     );
 
 INSERT INTO
-    produto (descricao, valor, marca)
-VALUES ('Feijão Carioquinha', 5, 'Xap');
+    produto (descricao, valor, marca, categoriaid)
+VALUES ('Feijão Carioquinha', 5, 'Xap', 1);
 
 CREATE SEQUENCE usuario_id_seq;
 
@@ -124,6 +130,54 @@ VALUES (
         'Arroz estava com o saco furado',
         58
     );
+
+CREATE SEQUENCE categoria_id_seq;
+
+ CREATE TABLE
+    categoria (
+        id int NOT NULL DEFAULT nextval('categoria_id_seq'),
+        nome varchar(200) NOT NULL,
+        descricao varchar(200) NOT NULL,
+        CONSTRAINT categoria_pk PRIMARY KEY (id),
+    );
+
+CREATE UNIQUE INDEX categoria_id_idx ON categoria USING btree (id);
+
+INSERT INTO
+    categoria (
+        nome,
+        descricao
+    )
+VALUES ('Grãos','Grãos');
+
+INSERT INTO
+    categoria (
+        nome,
+        descricao
+    )
+VALUES ('Condimento','Misturas criadas indutrialmente.');
+
+INSERT INTO
+    categoria (
+        nome,
+        descricao
+    )
+VALUES ('Resfirados', 'Produtos a serem conservados em temperaturas frias.');
+
+INSERT INTO
+    categoria (
+        nome,
+        descricao
+    )
+VALUES ('Laticionios','Derivados do leite.');
+
+INSERT INTO
+    categoria (
+        nome,
+        descricao
+    )
+VALUES ('Industrializado','Produtos de frabicação humana.');
+
 
 /*
  @TODO:

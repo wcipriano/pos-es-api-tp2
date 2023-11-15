@@ -7,9 +7,9 @@ Pos-graduação Especialização em Engenharia de Software - PucMG - APIs e Webs
 Nomes e cód pessoa
 
 1. Wager Cipriano - 993540
-1. Lucas Willian - 1116622
-1. Hugo Somers - 1439214
-1.
+2. Lucas Willian - 1116622
+3. Hugo Somers - 1439214
+4.
 
 ## Hospegagem
 
@@ -49,15 +49,22 @@ O banco de dados foi implementado no Postgresql, versão 15, está hospedado no 
 - Get Avaliations by product ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/:productId
 - Get Avaliations by user ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/user/:userId
 - Get Avaliations by user ID within a product: https://pos-es-api-tp2.onrender.com/api/avaliacao/:userId/:productId
+- Get all categorys: https://pos-es-api-tp2.onrender.com/api/categoria
+- Get Category by category ID: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
+- Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/categoria/
+
 
 ## Resources Endpoints POST
+- Create Category: https://pos-es-api-tp2.onrender.com/api/categoria
 - Create Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 150}
 
 ## Resources Endpoints DELETE
+- Delete Category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
 - Delete Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
 
 ## Resources Endpoints PUT
+- Update category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
 - Update Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 15}
 
