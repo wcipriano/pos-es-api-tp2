@@ -53,17 +53,19 @@ O banco de dados foi implementado no Postgresql, versão 15, está hospedado no 
 - Get Category by category ID: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
 - Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/categoria/
 
-
 ## Resources Endpoints POST
+
 - Create Category: https://pos-es-api-tp2.onrender.com/api/categoria
 - Create Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 150}
 
 ## Resources Endpoints DELETE
+
 - Delete Category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
 - Delete Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
 
 ## Resources Endpoints PUT
+
 - Update category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
 - Update Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 15}
@@ -93,23 +95,25 @@ Allowed Methods: GET, POST, PUT, DELETE
 
 1. Clone project:
    `git clone https://github.com/wcipriano/pos-es-api-tp2.git`
-2. Open project folder:
+1. Open project folder:
    `cd pos-es-api-tp2/`
-3. Create _.env_ file on the project root dir, and insert keys: `PORT, SECRET_KEY, DATABASE_URL`
+1. Create `.env.development` file on the project root dir, use `.env.example` as a template, configure keys like: `PORT, SECRET_KEY, DATABASE_URL and PG_SSL`
 
    Comand to create a **SECRET_KEY**: `node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`
    **DATABASE_URL**: your local database string connection
 
-4. Install node, npm and nvm (if necessary): [link](https://medium.com/@iam_vinojan/how-to-install-node-js-and-npm-using-node-version-manager-nvm-143165b16ce1)
-5. Set npm version: `nvm use v20.8.0`. See the versions below:
+1. If you want to connecto to production database, also create `.env.production` file
+
+1. Install node, npm and nvm (if necessary): [link](https://medium.com/@iam_vinojan/how-to-install-node-js-and-npm-using-node-version-manager-nvm-143165b16ce1)
+1. Set npm version: `nvm use v20.8.0`. See the versions below:
 
    ```json
    "npm": ">=9.6.2 <=10.2.0",
    "node": ">=14.17.0 <=20.8.0"
    ```
 
-6. Install packages: `npm install`
-7. Run the application: `npm run dev`
+1. Install packages: `npm install`
+1. Run the application: `npm run dev`
 
 ## Projeto
 

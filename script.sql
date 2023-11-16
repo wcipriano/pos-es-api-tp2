@@ -1,7 +1,39 @@
 -- Script de criação do bando de dados
 
-CREATE SEQUENCE produto_id_seq;
+--- DROP
+-- DROP TABLE usuario; DROP TABLE categoria; DROP TABLE produto; DROP TABLE avaliacao;
 
+
+BEGIN TRANSACTION;
+
+-- CREATE TABLES
+
+CREATE SEQUENCE usuario_id_seq;
+CREATE TABLE
+    usuario (
+        id int NOT NULL DEFAULT nextval('usuario_id_seq'),
+        nome varchar(200) NOT NULL,
+        email varchar(100) NOT NULL,
+        login varchar(100) NOT NULL,
+        senha varchar(100) NOT NULL,
+        roles varchar (200) NOT NULL DEFAULT 'USER',
+        CONSTRAINT usuario_pk PRIMARY KEY (id)
+    );
+
+
+CREATE SEQUENCE categoria_id_seq;
+ CREATE TABLE
+    categoria (
+        id int NOT NULL DEFAULT nextval('categoria_id_seq'),
+        nome varchar(200) NOT NULL,
+        descricao varchar(200) NOT NULL,
+        CONSTRAINT categoria_pk PRIMARY KEY (id)
+    );
+CREATE UNIQUE INDEX categoria_id_idx ON categoria USING btree (id);
+
+
+
+CREATE SEQUENCE produto_id_seq;
 CREATE TABLE
     produto (
         id int4 NOT NULL DEFAULT nextval('produto_id_seq'),
@@ -12,65 +44,28 @@ CREATE TABLE
         CONSTRAINT produto_pk PRIMARY KEY (id),
         CONSTRAINT categoria_fk FOREIGN KEY (categoriaid) REFERENCES categoria(id)
     );
-
 CREATE UNIQUE INDEX produto_id_idx ON public.produto USING btree (id);
 
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES (
-        'Arroz parboilizado 5Kg',
-        25,
-        'Tio João',
-        1
+
+
+
+CREATE SEQUENCE avaliacao_id_seq;
+CREATE TABLE 
+    avaliacao (
+        id int NOT NULL DEFAULT nextval('avaliacao_id_seq'),
+        usuarioid int NOT NULL,
+        produtoid int NOT NULL,
+        texto varchar(200) NOT NULL,
+        curtidas int NOT NULL DEFAULT 0,
+        CONSTRAINT avaliacao_pk PRIMARY KEY (id),
+        CONSTRAINT usuario_fk FOREIGN KEY (usuarioid) REFERENCES usuario(id),
+        CONSTRAINT produto_fk FOREIGN KEY (produtoid) REFERENCES produto(id)
     );
+CREATE UNIQUE INDEX avaliacao_id_idx ON public.avaliacao USING btree (id);
 
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES (
-        'Maionese 250gr',
-        7.2,
-        'Helmanns',
-        2
-    );
 
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES (
-        'Iogurte Natural 200ml',
-        2.5,
-        'Itambé'
-        3
-    );
 
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES ('Nescau 400gr', 8, 'Nestlé', 4);
-
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES (
-        'Batata Palha 180gr',
-        5.20,
-        'Chipps',
-        5
-    );
-
-INSERT INTO
-    produto (descricao, valor, marca, categoriaid)
-VALUES ('Feijão Carioquinha', 5, 'Xap', 1);
-
-CREATE SEQUENCE usuario_id_seq;
-
-CREATE TABLE
-    public.usuario (
-        id int NOT NULL DEFAULT nextval('usuario_id_seq'),
-        nome varchar(200) NOT NULL,
-        email varchar(100) NOT NULL,
-        login varchar(100) NOT NULL,
-        senha varchar(100) NOT NULL,
-        roles varchar (200) NOT NULL DEFAULT 'USER',
-        CONSTRAINT usuario_pk PRIMARY KEY (id)
-    );
+-- INSERT DATA
 
 INSERT INTO
     usuario (nome, login, senha, email, roles)
@@ -92,56 +87,7 @@ VALUES (
         'USER;ADMIN'
     );
 
-CREATE SEQUENCE avaliacao_id_seq;
 
-CREATE TABLE
-    avaliacao (
-        id int NOT NULL DEFAULT nextval('avaliacao_id_seq'),
-        usuarioid int NOT NULL,
-        produtoid int NOT NULL,
-        texto varchar(200) NOT NULL,
-        curtidas int NOT NULL DEFAULT 0,
-        CONSTRAINT avaliacao_pk PRIMARY KEY (id),
-        CONSTRAINT usuario_fk FOREIGN KEY (usuarioid) REFERENCES usuario(id),
-        CONSTRAINT produto_fk FOREIGN KEY (produtoid) REFERENCES produto(id)
-    );
-
-CREATE UNIQUE INDEX avaliacao_id_idx ON public.avaliacao USING btree (id);
-
-INSERT INTO
-    avaliacao (
-        usuarioid,
-        produtoid,
-        texto,
-        curtidas
-    )
-VALUES (1, 1, 'Muito bom o arroz', 10);
-
-INSERT INTO
-    avaliacao (
-        usuarioid,
-        produtoid,
-        texto,
-        curtidas
-    )
-VALUES (
-        2,
-        1,
-        'Arroz estava com o saco furado',
-        58
-    );
-
-CREATE SEQUENCE categoria_id_seq;
-
- CREATE TABLE
-    categoria (
-        id int NOT NULL DEFAULT nextval('categoria_id_seq'),
-        nome varchar(200) NOT NULL,
-        descricao varchar(200) NOT NULL,
-        CONSTRAINT categoria_pk PRIMARY KEY (id),
-    );
-
-CREATE UNIQUE INDEX categoria_id_idx ON categoria USING btree (id);
 
 INSERT INTO
     categoria (
@@ -178,6 +124,81 @@ INSERT INTO
     )
 VALUES ('Industrializado','Produtos de frabicação humana.');
 
+
+
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES (
+        'Arroz parboilizado 5Kg',
+        25,
+        'Tio João',
+        1
+    );
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES (
+        'Maionese 250gr',
+        7.2,
+        'Helmanns',
+        2
+    );
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES (
+        'Iogurte Natural 200ml',
+        2.5,
+        'Itambé',
+        3
+    );
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES ('Nescau 400gr', 8, 'Nestlé', 4);
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES (
+        'Batata Palha 180gr',
+        5.20,
+        'Chipps',
+        5
+    );
+
+INSERT INTO
+    produto (descricao, valor, marca, categoriaid)
+VALUES ('Feijão Carioquinha', 5, 'Xap', 1);
+
+
+
+INSERT INTO
+    avaliacao (
+        usuarioid,
+        produtoid,
+        texto,
+        curtidas
+    )
+VALUES (1, 1, 'Muito bom o arroz', 10);
+
+INSERT INTO
+    avaliacao (
+        usuarioid,
+        produtoid,
+        texto,
+        curtidas
+    )
+VALUES (
+        2,
+        1,
+        'Arroz estava com o saco furado',
+        58
+    );
+
+
+
+COMMIT;
 
 /*
  @TODO:
