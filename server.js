@@ -1,9 +1,17 @@
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const app = express();
+const express = require("express"),
+  cors = require("cors"),
+  path = require("path"),
+  app = express();
 
+//OAS (OpenAPI Specification) 3.1.0
+const swaggerJsdoc = require("swagger-jsdoc"),
+  swaggerUi = require("swagger-ui-express"),
+  oas_conf = require("./oas"),
+  specs = swaggerJsdoc(oas_conf);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+//Routes
 const router_prd = require("./api/routes/product");
 const router_sec = require("./api/routes/security");
 const router_avlt = require("./api/routes/avaliations");

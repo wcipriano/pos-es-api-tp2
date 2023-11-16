@@ -148,3 +148,7 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 - [HTTP Methods](https://restfulapi.net/http-methods/)
 - [How to secure a REST API using JWT authentication](https://blog.logrocket.com/secure-rest-api-jwt-authentication/)
 - [Knex Query Builder](https://knexjs.org/guide/query-builder.html)
+- [Documenting your Express API with Swagger](https://blog.logrocket.com/documenting-express-js-api-swagger/)
+- [OpenAPI Specification v3.1.0](https://spec.openapis.org/oas/v3.1.0)
+- [Swagger Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+-
