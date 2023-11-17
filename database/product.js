@@ -1,10 +1,13 @@
 const dbc = require("./conn");
+const { fields, order_options } = require("./db_util");
 const table = "produto";
 
 class Product {
-  async get(id) {
+  async get(id, sort, order) {
     if (id) return dbc.select("*").from(table).where({ id: id }).first();
-    else return dbc.select("*").from(table).orderBy("descricao");
+    if (order && order_options.indexOf(order) == -1) order = "asc";
+    if (sort && fields.produto.indexOf(sort) == -1) sort = "descricao";
+    return dbc.select("*").from(table).orderBy(sort, order);
   }
 
   async add(produto) {

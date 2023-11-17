@@ -168,6 +168,7 @@
 const express = require("express");
 let router = express.Router();
 const endpoint = "/produtos";
+router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 const Product = require("../../database/product");
@@ -185,7 +186,7 @@ router.param("productId", (req, res, next, value) => {
 // GET all products
 router.get(endpoint, auth.check_token, function (req, res) {
   product
-    .get()
+    .get(null, req.query._sort, req.query._order)
     .then((produtos) => res.status(200).json(produtos))
     .catch((err) => {
       res.status(500).json({
