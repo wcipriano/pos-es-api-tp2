@@ -13,6 +13,10 @@ const dbc = require("knex")({
   },
 });
 
+// Pagination: Knex Postgres pagination
+const { attachPaginate } = require("knex-paginate");
+attachPaginate();
+
 dbc
   .raw("SELECT * from usuario")
   .then(() => {

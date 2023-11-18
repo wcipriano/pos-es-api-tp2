@@ -1,7 +1,11 @@
 -- Script de criação do bando de dados
 
 --- DROP
--- DROP TABLE usuario; DROP TABLE categoria; DROP TABLE produto; DROP TABLE avaliacao;
+/*
+DROP TABLE IF EXISTS usuario; DROP TABLE IF EXISTS categoria; DROP TABLE IF EXISTS produto; DROP TABLE IF EXISTS avaliacao;
+DROP SEQUENCE IF EXISTS usuario_id_seq; DROP SEQUENCE IF EXISTS categoria_id_seq; DROP SEQUENCE IF EXISTS produto_id_seq; DROP SEQUENCE IF EXISTS avaliacao_id_seq; 
+DROP INDEX IF EXISTS categoria_id_idx; DROP INDEX IF EXISTS categoria_id_idx; DROP INDEX IF EXISTS produto_id_idx; DROP INDEX IF EXISTS avaliacao_id_idx; 
+*/
 
 
 BEGIN TRANSACTION;
