@@ -11,7 +11,13 @@ const swaggerJsdoc = require("swagger-jsdoc"),
   specs = swaggerJsdoc(oas_conf);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-//Routes
+// Default Routes
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", express.static(path.join(__dirname, "/public")));
+
+// App Routes
 const router_prd = require("./api/routes/product");
 const router_sec = require("./api/routes/security");
 const router_avlt = require("./api/routes/avaliations");
@@ -21,11 +27,6 @@ app.use("/api", router_sec);
 app.use("/api", router_avlt);
 app.use("/api", router_cat);
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use("/", express.static(path.join(__dirname, "/public")));
-
+// Start server
 let port = process.env.PORT || 3000;
 app.listen(port);
