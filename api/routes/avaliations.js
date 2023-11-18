@@ -1,3 +1,223 @@
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ *   schemas:
+ *     StatusOperation:
+ *       type: object
+ *       properties:
+ *         updated:
+ *           type: integer
+ *           description: Quantidade de recursos atualizados
+ *         inserted:
+ *           type: integer
+ *           description: Quantidade de recursos inseridos
+ *       example:
+ *         updated: 1
+ *
+ *     avaliacao:
+ *       type: object
+ *       required:
+ *         - usuarioid
+ *         - produtoid
+ *         - texto
+ *         - curtidas
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The auto-generated id of the category
+ *         usuarioid:
+ *           type: integer
+ *           description: Usuario que escreveu o comentário
+ *         produtoid:
+ *           type: integer
+ *           description: Produto que recebeu o comentário
+ *         texto:
+ *           type: string
+ *           description: Comentário
+ *         curtidas:
+ *           type: integer
+ *           description: Quantia de curtidas maior que 0
+ *       example:
+ *         usuarioid: 1
+ *         produtoid: 3
+ *         texto: Perfeitas condições
+ *         curtidas: 1
+ *
+ * security:
+ *   - bearerAuth: []
+ *
+ * tags:
+ *   name: Avaliacoes
+ *   description: API de gerenciamento de avaliações de produtos
+ *
+ * /api/avaliacao/{productId}:
+ *   get:
+ *     summary: Retorna a lista de avaliacoes em um produto
+ *     tags: [Avaliacoes]
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código do produto
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: O response com a lista de avaliacoes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/avaliacao'
+ *       401:
+ *         description: Acesso não permitido
+ * /api/avaliacao/user/{userId}:
+ *   get:
+ *     summary: Retorna a lista de avaliacoes de um usuario
+ *     tags: [Avaliacoes]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código do usuário
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: O response com a lista de avaliacoes de um usuároo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/avaliacao'
+ *       401:
+ *         description: Acesso não permitido
+ *
+ * /api/avaliacao/{userId}/{productId}:
+ *   get:
+ *     summary: Retorna a lista de avaliacoes de um usuario em determinado produto
+ *     tags: [Avaliacoes]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *          type: integer
+ *         required: true
+ *         description: Código do usuário
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código do produto
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: O response com a lista de avaliacoes de um usuároo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/avaliacao'
+ *       401:
+ *         description: Acesso não permitido
+ * /api/avaliacao:
+ *   post:
+ *     summary: Cria uma nova avaliacao
+ *     tags: [Avaliacoes]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *          type: integer
+ *         required: true
+ *         description: Código do usuário
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código do produto
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/avaliacao'
+ *     responses:
+ *       200:
+ *         description: A avaliacao foi inserida.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/avaliacao'
+ *       401:
+ *         description: Invalid token
+ * /api/avaliacao/{avaliationId}:
+ *   put:
+ *    summary: Atualiza uma avaliacao pelo ID
+ *    tags: [Avaliacoes]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: Código da avaliacao
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/avaliacao'
+ *    responses:
+ *      200:
+ *        description: A avaliacao foi inserida ou atualizada
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/StatusOperation'
+ *      404:
+ *        description: The resource was not found
+ *      500:
+ *        description: Some error happened
+ *   delete:
+ *     summary: Remove uma avaliacao a partir do id
+ *     tags: [Avaliacoes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código da avaliacao
+ *     responses:
+ *       204:
+ *         description: A avaliacao foi deletada
+ *       404:
+ *         description: Resource não encontrado
+ */
+
 const express = require("express");
 
 let router = express.Router();
@@ -35,7 +255,7 @@ router.param("avaliationId", (_, res, next, value) => {
 router.get(`${endpoint}/:productId`, auth.check_token, function (req, res) {
   const id = parseInt(req.params.productId);
   avaliation
-    .getByProduct(id)
+    .getByProduct(id, req.query)
     .then((data) => {
       if (data) return res.status(200).json(data);
       return  res.status(404).json({ error: `record ${id} not found` });
@@ -51,7 +271,7 @@ router.get(`${endpoint}/:productId`, auth.check_token, function (req, res) {
 router.get(`${endpoint}/user/:userId`, auth.check_token, function (req, res) {
   const id = parseInt(req.params.userId);
   avaliation
-    .getByUser(id)
+    .getByUser(id, req.query)
     .then((data) => {
       if (data) return res.status(200).json(data);
       return res.status(404).json({ error: `record ${id} not found` });
@@ -68,7 +288,7 @@ router.get(`${endpoint}/:userId/:productId`, auth.check_token, function (req, re
   const userId = parseInt(req.params.userId);
   const productId = parseInt(req.params.productId);
   avaliation
-    .getByUserInProduct(userId, productId)
+    .getByUserInProduct(userId, productId, req.query)
     .then((data) => {
       if (data) return res.status(200).json(data);
       return res.status(404).json({ error: `record ${id} not found` });
