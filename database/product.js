@@ -1,13 +1,17 @@
-const dbc = require("./conn");
-const { fields, order_options } = require("./db_util");
-const table = "produto";
+const dbc = require("./conn"),
+  get_query_fields = require("./../api/api_utils"),
+  table = "produto";
 
 class Product {
-  async get(id, sort, order) {
+  async get(id, query_string) {
     if (id) return dbc.select("*").from(table).where({ id: id }).first();
-    if (order && order_options.indexOf(order) == -1) order = "asc";
-    if (sort && fields.produto.indexOf(sort) == -1) sort = "descricao";
-    return dbc.select("*").from(table).orderBy(sort, order);
+    //Filter, Sort and Order
+    const qf = get_query_fields(query_string, table);
+    return dbc
+      .select("*")
+      .from(table)
+      .where(qf.query)
+      .orderBy(qf.sort, qf.order);
   }
 
   async add(produto) {
