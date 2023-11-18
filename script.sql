@@ -101,7 +101,7 @@ INSERT INTO
         nome,
         descricao
     )
-VALUES ('Condimento','Misturas criadas indutrialmente.');
+VALUES ('Condimentos','Misturas criadas industrialmente.');
 
 INSERT INTO
     categoria (
@@ -115,14 +115,14 @@ INSERT INTO
         nome,
         descricao
     )
-VALUES ('Laticionios','Derivados do leite.');
+VALUES ('Laticinios','Derivados do leite.');
 
 INSERT INTO
     categoria (
         nome,
         descricao
     )
-VALUES ('Industrializado','Produtos de frabicação humana.');
+VALUES ('Industrializado','Produtos de fabricação humana.');
 
 
 

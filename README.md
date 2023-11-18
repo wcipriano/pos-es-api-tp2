@@ -51,7 +51,7 @@ O banco de dados foi implementado no Postgresql, versão 15, está hospedado no 
 - Get Avaliations by user ID within a product: https://pos-es-api-tp2.onrender.com/api/avaliacao/:userId/:productId
 - Get all categorys: https://pos-es-api-tp2.onrender.com/api/categoria
 - Get Category by category ID: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
-- Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/categoria/
+- Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
 
 ## Resources Endpoints POST
 

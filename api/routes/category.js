@@ -1,21 +1,173 @@
-const express = require("express");
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *
+ *   schemas:
+ *     StatusOperation:
+ *       type: object
+ *       properties:
+ *         updated:
+ *           type: integer
+ *           description: Quantidade de recursos atualizados
+ *         inserted:
+ *           type: integer
+ *           description: Quantidade de recursos inseridos
+ *       example:
+ *         updated: 1
+ *
+ *     Categoria:
+ *       type: object
+ *       required:
+ *         - nome
+ *         - descricao
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The auto-generated id of the category
+ *         nome:
+ *           type: string
+ *           description: Nome da categoria
+ *         descricao:
+ *           type: string
+ *           description: Descrição da categoria
+ *       example:
+ *         nome: Condimento
+ *         descricao: Misturas criadas indutrialmente.
+ *
+ * security:
+ *   - bearerAuth: []
+ *
+ * tags:
+ *   name: Categorias
+ *   description: API de gerenciamento de categorias de produtos
+ *
+ * /api/categoria:
+ *   get:
+ *     summary: Retorna a lista de categorias
+ *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: O response com a lista de categorias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/categoria'
+ *       401:
+ *         description: Acesso não permitido
+ *
+ *   post:
+ *     summary: Cria uma nova categoria
+ *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Categoria'
+ *     responses:
+ *       200:
+ *         description: A categoria foi inserida.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Categoria'
+ *       401:
+ *         description: Invalid token
+ *
+ *
+ * /api/categoria/{id}:
+ *   get:
+ *     summary: Retorna uma categoria pelo id
+ *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Nome da categoria
+ *     responses:
+ *       200:
+ *         description: O response da categoria de código solicitado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Categoria'
+ *       404:
+ *         description: Resource não encontrado
+ *
+ *   put:
+ *    summary: Atualiza a categoria pelo ID
+ *    tags: [Categorias]
+ *    security:
+ *      - bearerAuth: []
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: Código da categoria
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Categoria'
+ *    responses:
+ *      200:
+ *        description: A categoria inserida ou atualizada
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/StatusOperation'
+ *      404:
+ *        description: The resource was not found
+ *      500:
+ *        description: Some error happened
+ *   delete:
+ *     summary: Remove uma categoria a partir do id
+ *     tags: [Categorias]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Código da categoria
+ *     responses:
+ *       204:
+ *         description: A categoria foi deletada
+ *       404:
+ *         description: Resource não encontrado
+ */
 
+
+const express = require("express");
 let router = express.Router();
+const endpoint = "/categoria";
+router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
-const endpoint = "/categoria";
-
 const Authorization = require("../../authorization");
-const category = require("../../database/category");
-const category = new category();
+const Category = require("../../database/category");
+const category = new Category();
 const auth = new Authorization();
-
-//Param validation
-router.param("nome", (_, res, next, value) => {
-  const nome = value;
-  if (!nome) return res.status(400).json({ error: `invalid name: "${value}"` });
-  else next();
-});
 
 //Param validation
 router.param("categoryid", (_, res, next, value) => {
@@ -38,13 +190,13 @@ router.get(endpoint, auth.check_token, function (req, res) {
 });
 
 // GET the category
-router.get(`${endpoint}/:nome`, auth.check_token, function (req, res) {
-  const nome = req.params.categoryid;
+router.get(`${endpoint}/:categoryid`, auth.check_token, function (req, res) {
+  const id = parseInt(req.params.categoryid);
   category
-    .getByCategory(nome)
+    .getByCategory(id)
     .then((data) => {
       if (data) return res.status(200).json(data);
-      return  res.status(404).json({ error: `record ${nome} not found` });
+      return  res.status(404).json({ error: `record ${id} not found` });
     })
     .catch((err) => {
       return res.status(500).json({

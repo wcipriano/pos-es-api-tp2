@@ -15,9 +15,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 const router_prd = require("./api/routes/product");
 const router_sec = require("./api/routes/security");
 const router_avlt = require("./api/routes/avaliations");
+const router_cat = require("./api/routes/category");
 app.use("/api", router_prd);
 app.use("/api", router_sec);
 app.use("/api", router_avlt);
+app.use("/api", router_cat);
 
 app.use(cors());
 app.use(express.json());
