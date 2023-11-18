@@ -1,20 +1,24 @@
+const get_query_fields = require("../api/api_utils");
 const dbc = require("./conn");
 const table = "avaliacao";
 
 class Avaliation {
-  async getByProduct(id) {
+  async getByProduct(id, query_string) {
+    const qf = get_query_fields(query_string, table);
     if (id) return dbc.select("*").from(table).where({ produtoid: id });
-    else return dbc.select("*").from(table).orderBy("texto");
+    return dbc.select("*").from(table).where(qf.query).orderBy(qf.sort, qf.order);
   }
 
-  async getByUser(id) {
+  async getByUser(id, query_string) {
+    const qf = get_query_fields(query_string, table);
     if (id) return dbc.select("*").from(table).where({ usuarioid: id });
-    else return dbc.select("*").from(table).orderBy("texto");
+    return dbc.select("*").from(table).where(qf.query).orderBy(qf.sort, qf.order);
   }
 
-  async getByUserInProduct(userId, productId) {
+  async getByUserInProduct(userId, productId, query_string) {
+    const qf = get_query_fields(query_string, table);
     if (userId && productId) return dbc.select("*").from(table).where({ usuarioid: userId, produtoid: productId });
-    else return dbc.select("*").from(table).orderBy("texto");
+    return dbc.select("*").from(table).where(qf.query).orderBy(qf.sort, qf.order);
   }
 
   async add(avaliation) {
