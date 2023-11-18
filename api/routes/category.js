@@ -98,7 +98,7 @@
  *         schema:
  *           type: integer
  *         required: true
- *         description: Nome da categoria
+ *         description: Codigo da categoria
  *     responses:
  *       200:
  *         description: O response da categoria de código solicitado
@@ -180,7 +180,7 @@ router.param("categoryid", (_, res, next, value) => {
 // GET all categorys
 router.get(endpoint, auth.check_token, function (req, res) {
   category
-    .get()
+    .get(null, req.query)
     .then((categorias) => res.status(200).json(categorias))
     .catch((err) => {
       res.status(500).json({
@@ -193,7 +193,7 @@ router.get(endpoint, auth.check_token, function (req, res) {
 router.get(`${endpoint}/:categoryid`, auth.check_token, function (req, res) {
   const id = parseInt(req.params.categoryid);
   category
-    .getByCategory(id)
+    .get(id)
     .then((data) => {
       if (data) return res.status(200).json(data);
       return  res.status(404).json({ error: `record ${id} not found` });
@@ -205,7 +205,7 @@ router.get(`${endpoint}/:categoryid`, auth.check_token, function (req, res) {
     });
 });
 
-
+/*
 // GET all the products from a category
 router.get(`${endpoint}/:categoryid`, auth.check_token, function (req, res) {
   const id = parseInt(req.params.categoryid);
@@ -221,7 +221,7 @@ router.get(`${endpoint}/:categoryid`, auth.check_token, function (req, res) {
       });
     });
 });
-
+*/
 
 // POST: Create an category
 router.post(endpoint, auth.check_token, auth.check_admin, (req, res) => {

@@ -1,9 +1,11 @@
 const fields = {
   produto: new Array("id", "descricao", "valor", "marca", "categoriaid"),
+  categoria: new Array("id", "nome", "descricao"),
 };
 
 const default_sort_field = {
   produto: "descricao",
+  categoria: "nome",
 };
 
 const order_options = new Array("asc", "desc");
