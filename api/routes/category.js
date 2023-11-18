@@ -20,7 +20,7 @@
  *       example:
  *         updated: 1
  *
- *     Categoria:
+ *     categoria:
  *       type: object
  *       required:
  *         - nome
