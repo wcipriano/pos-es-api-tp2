@@ -4,9 +4,14 @@ const table_pro = "produto";
 
 class Category {
 
-  async getByCategory(nome) {
-    if (nome) return dbc.select("*").from(table_cat).where({ nome: nome });
-    else return dbc.select("*").from(table_cat).orderBy("nome");
+  async get(id) {
+    if (id) return dbc.select("*").from(table_cat).where({ id: id }).first();
+    else return dbc.select("*").from(table_cat).orderBy("id");
+  }
+
+  async getByCategory(id) {
+    if (id) return dbc.select("*").from(table_cat).where({ id: id });
+    else return dbc.select("*").from(table_cat).orderBy("id");
   }
 
   async getByProductInCategory(categoryid) {
@@ -38,4 +43,4 @@ class Category {
   }
 }
 
-module.exports = category;
+module.exports = Category;
