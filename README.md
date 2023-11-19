@@ -9,7 +9,7 @@ Nomes e cód pessoa
 1. Wager Cipriano - 993540
 2. Lucas Willian - 1116622
 3. Hugo Somers - 1439214
-4.
+4. Renan Olivé - 178563
 
 ## Hospegagem
 
@@ -133,9 +133,9 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 - [ ] Exemplos de uso
 - [ ] Servidor Mock
 
-- [ ] Estratégias de HATEOAS
+- [ ] Estratégias de HATEOAS 
 
-- [ ] Especificação de versionamento da API: Via PATH. Semantic Versioning: Manor.Minor.Patch: Breaking.Feature.Fix
+- [X] Especificação de versionamento da API: Via PATH. Semantic Versioning: Manor.Minor.Patch: Breaking.Feature.Fix
 
 * Disponibilizar recursos principais e recursos associados/relacionados.
 * Definição e disponibilização de recursos, endpoints e respectivos parâmetros

@@ -416,6 +416,40 @@ const swaggerDefinition = {
           },
         },
       },
+      "/security/{userId}": {
+        delete: {
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          tags: ["Usuários"],
+          summary: "Deletar um usuário (somente role admin)",
+          parameters: [
+            {
+              in: "path",
+              name: "userId",
+              schema: {
+                type: "integer",
+              },
+              required: true,
+              description: "Código do usuário",
+            },
+          ],
+          responses: {
+            204: {
+              description: "O item foi deletado",
+            },
+            401: {
+              description: "Acesso não permitido",
+            },
+            404: {
+              description: "Não encontrado",
+            },
+          },
+        },
+      },
+
       "/categorias": {
         get: {
           security: [
