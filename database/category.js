@@ -12,7 +12,8 @@ class Category {
       .select("*")
       .from(table)
       .where(qf.query)
-      .orderBy(qf.sort, qf.order);
+      .orderBy(qf.sort, qf.order)
+      .paginate({ perPage: qf.limit, currentPage: qf.page });
   }
 
 /*

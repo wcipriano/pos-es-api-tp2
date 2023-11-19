@@ -10,7 +10,8 @@ class Avaliation {
       .select("*")
       .from(table)
       .where(qf.query)
-      .orderBy(qf.sort, qf.order);
+      .orderBy(qf.sort, qf.order)
+      .paginate({ perPage: qf.limit, currentPage: qf.page });
   }
 
   async getByUser(id, query_string) {
@@ -20,7 +21,8 @@ class Avaliation {
       .select("*")
       .from(table)
       .where(qf.query)
-      .orderBy(qf.sort, qf.order);
+      .orderBy(qf.sort, qf.order)
+      .paginate({ perPage: qf.limit, currentPage: qf.page });
   }
 
   async getByUserInProduct(userId, productId, query_string) {
@@ -34,7 +36,8 @@ class Avaliation {
       .select("*")
       .from(table)
       .where(qf.query)
-      .orderBy(qf.sort, qf.order);
+      .orderBy(qf.sort, qf.order)
+      .paginate({ perPage: qf.limit, currentPage: qf.page });
   }
 
   async add(avaliation) {
