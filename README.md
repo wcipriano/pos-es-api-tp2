@@ -9,7 +9,7 @@ Nomes e cód pessoa
 1. Wager Cipriano - 993540
 2. Lucas Willian - 1116622
 3. Hugo Somers - 1439214
-4.
+4. Renan Olivé - 178563
 
 ## Hospegagem
 
@@ -147,9 +147,10 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
 - [x] OpenAPI Specification: Swagger.
 - [x] Exemplos de uso
 - [x] Servidor Mock
-- [ ] Estratégias de HATEOAS
-- [ ] Especificação de versionamento da API: Via PATH. Semantic Versioning: Manor.Minor.Patch: Breaking.Feature.Fix
+- [x] Estratégias de HATEOAS (paginação)
+- [x] Especificação de versionamento da API: Via PATH. Semantic Versioning: Manor.Minor.Patch: Breaking.Feature.Fix
 - [x] Paginação, Filtros e Ordenação
+- [x] Estratégias de HATEOAS (paginação)
 
 ## REFS:
 
