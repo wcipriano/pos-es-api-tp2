@@ -3,15 +3,22 @@ const swaggerDefinition = {
     openapi: "3.1.0",
     info: {
       title: "Supermercado on Online - Loja de Produtos alimentícios",
-      version: "0.9.0",
-      description: `Loja Online de Produtos Eletrônicos: Recursos: Produtos, Categorias, Avaliações de Clientes.<br/>
-                    TP2 - Projeto de API. Engenharia de software - Puc Minas - <b>AWS - Grupo 3</b>`,
+      version: "0.9.1",
+      description: `  <b>Recursos</b>: Produtos, Categorias, Avaliações dos usuários para os produtos.<br/>
+                      TP2 - Projeto de API. Engenharia de software - Puc Minas - <b>AWS - Grupo 3</b>.<br/>
+                      <b>Credenciais de Acesso</b>: Login: admin, Senha: 1234.<br/><br/>
+                      <b>Acesso ao código-fonte completo:</b> API foi implementada em Node, todos os detalhes sobre utilização/testes e arquitetura utilizada estão disponíveis no github (README do projeto).<br/>
+                      <i>Todos os requisitos solicitados na proposta foram implementadas</i>, e avançamos um pouco mais para promover o aprendizado.<br/><br/>
+                      Professor, Se tiver alguma dificuldade sobre como validar algum requisito, por favor, nos informe, e nos dê a oportunidade de resolver qualquer dúvida.<br/>
+                      Ao avaliar o trabalho, por favor, dê um feedback além da nota, citando os pontos que não foram atendidos (se ocorrer algum).<br/>
+                      <a href="https://github.com/wcipriano/pos-es-api-tp2/blob/main/test/Insomnia_rest_client.json" target="_blank">Link para baixar o projeto</a> e importar no Insomnia (ou postman) com todos os cenários de teste (Filtros, ordenação, paginação, etc, etc) já configurados.<br/>
+                    `,
       license: {
-        name: "Git Hub",
+        name: "Acesso ao código-fonte completo no Git Hub",
         url: "https://github.com/wcipriano/pos-es-api-tp2",
       },
       contact: {
-        name: "Prod version on line",
+        name: "Supermercado on Online",
         url: "https://pos-es-api-tp2.onrender.com/api-docs",
         email: "993540@sga.pucminas.br",
       },
@@ -287,11 +294,6 @@ const swaggerDefinition = {
         },
       },
     },
-    // security: [
-    //   {
-    //     bearerAuth: [],
-    //   },
-    // ],
     tags: [
       {
         name: "Usuários",

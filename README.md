@@ -17,15 +17,15 @@ Nomes e cód pessoa
 > Esta api está hospedada no [render](https://render.com/) em uma <b>instancia gratuita</b>.
 
 > [!IMPORTANT]
-> Instâncias gratuitas entram em estado de hibernação quando ficam inativas, se receber requisições por mais de 15min.
-> SE OPTAR por utilizar a versão hospedada tenha **conciência deste fato** !
+> Instâncias gratuitas entram em estado de hibernação quando ficam inativas, SEM receber requisições por mais de 15min.
+> SE OPTAR por utilizar a versão hospedada tenha **consciência deste fato** !
 
 > [!WARNING]
 > Com isso, uma primeira requisição pode **demorar até 5min** para que a instancia volte para o estado ativo novamente.
 > Mas depois, para as próximas requisições passa a responder normalmente.
 
 $\color{gray}{Segue\ o\ endereço\ para\ acesso\ à\ API:}$
-[https://pos-es-api-tp2.onrender.com/api](https://pos-es-api-tp2.onrender.com/api/)
+[https://pos-es-api-tp2.onrender.com/api](https://pos-es-api-tp2.onrender.com/api-docs)
 
 ## TP2
 
@@ -44,42 +44,59 @@ O banco de dados foi implementado no Postgresql, versão 15, está hospedado no 
 
 ## Resources Endpoints GET
 
-- Get all Products: https://pos-es-api-tp2.onrender.com/api/produtos
-- Get Product by Id: https://pos-es-api-tp2.onrender.com/api/produtos/:Id
-- Get Avaliations by product ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/:productId
-- Get Avaliations by user ID: https://pos-es-api-tp2.onrender.com/api/avaliacao/user/:userId
-- Get Avaliations by user ID within a product: https://pos-es-api-tp2.onrender.com/api/avaliacao/:userId/:productId
-- Get all categorys: https://pos-es-api-tp2.onrender.com/api/categoria
-- Get Category by category ID: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
-- Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/categoria/:categoryid
+- Get all Products: https://pos-es-api-tp2.onrender.com/api/v1/produtos
+- Get Product by Id: https://pos-es-api-tp2.onrender.com/api/v1/produtos/:Id
+- Get Avaliations by product ID: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/:productId
+- Get Avaliations by user ID: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/user/:userId
+- Get Avaliations by user ID within a product: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/produtos/:productId/usuarios/:userId
+
+- Get all categorys: https://pos-es-api-tp2.onrender.com/api/v1/categoria
+- Get Category by category ID: https://pos-es-api-tp2.onrender.com/api/v1/categoria/:categoryid
+- Get all the products in the category: https://pos-es-api-tp2.onrender.com/api/v1/categoria/:categoryid
 
 ## Resources Endpoints POST
 
-- Create Category: https://pos-es-api-tp2.onrender.com/api/categoria
-- Create Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao
+- Create Category: https://pos-es-api-tp2.onrender.com/api/v1/categoria
+- Create Avaliation: https://pos-es-api-tp2.onrender.com/api/v1/avaliacao
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 150}
 
 ## Resources Endpoints DELETE
 
-- Delete Category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
-- Delete Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
+- Delete Category: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/:categoryId
+- Delete Avaliation: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/:avaliationId
 
 ## Resources Endpoints PUT
 
-- Update category: https://pos-es-api-tp2.onrender.com/api/avaliacao/:categoryId
-- Update Avaliation: https://pos-es-api-tp2.onrender.com/api/avaliacao/:avaliationId
+- Update category: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/:categoryId
+- Update Avaliation: https://pos-es-api-tp2.onrender.com/api/v1/avaliacoes/:avaliationId
 - - Exemplo body: {"usuarioid": 1, "produtoid": 2, "texto": "Excelente produto, mas falta sal", "curtidas": 15}
 
 ## RESTFull API
 
-Allowed Methods: GET, POST, PUT, DELETE
+- Allowed Methods: GET, POST, PUT, DELETE
+- Padrão de endpoints de parâmetros para filtros, ordenação, etc: [json-server](https://github.com/typicode/json-server#json-server-)
 
 ## Ferramentas e Arquitetura:
 
 - Node + Express
-- Github
-- render.com
-- Postgresql
+- Docker: Container BD Postgres (development - local)
+- Versionamento: Github
+- Banco de dados: Postgresql: render.com
+- Hospedagem Aplicação: render.com
+
+### Componentes:
+
+- bcryptjs: "^2.4.3",
+- cors: "^2.8.5",
+- dotenv: "^16.3.1",
+- express: "^4.18.2",
+- express-hateoas-links: "^1.3.1",
+- jsonwebtoken: "^9.0.2",
+- knex: "^3.0.1",
+- knex-paginate: "^3.1.1",
+- pg: "^8.11.3",
+- swagger-jsdoc: "^6.2.8",
+- swagger-ui-express: "^5.0.0"
 
 ## Create local Database
 
@@ -125,22 +142,14 @@ Utilize [este link](./test/Insomnia_rest_client.json) para baixar o arquivo JSON
       Loja Online de Produtos Eletrônicos: Recursos: Produtos, Categorias, Avaliações de Clientes.
 - [x] Autenticação e autorização
 - [x] API REST - operações CRUD - base com a tabela de produtos e usuários/autenticação
-- [ ] Resource Categorias \*
-- [x] Resource Avaliações \*
-
-- [ ] OpenAPI Specification: Swagger.
-      $\color{gray}{OBS.:\ Tem\ exemplo\ na\ aula\ do\ dia\ 01/11,\ a\ partir\ do\ time\ 3:05:00,\ disponivel\ }$ [neste link](https://bit.ly/3QHrPO3).
-- [ ] Exemplos de uso
-- [ ] Servidor Mock
-
+- [x] Resource Categorias
+- [x] Resource Avaliações
+- [x] OpenAPI Specification: Swagger.
+- [x] Exemplos de uso
+- [x] Servidor Mock
 - [ ] Estratégias de HATEOAS
-
 - [ ] Especificação de versionamento da API: Via PATH. Semantic Versioning: Manor.Minor.Patch: Breaking.Feature.Fix
-
-* Disponibilizar recursos principais e recursos associados/relacionados.
-* Definição e disponibilização de recursos, endpoints e respectivos parâmetros
-* Formatos de dados e códigos de resposta
-* Paginação, Filtros e Ordenação
+- [x] Paginação, Filtros e Ordenação
 
 ## REFS:
 
