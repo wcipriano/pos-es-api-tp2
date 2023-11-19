@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # BKP files
-*/bkp_*
+bkp_*

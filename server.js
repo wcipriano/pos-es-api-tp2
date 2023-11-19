@@ -17,15 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", express.static(path.join(__dirname, "/public")));
 
-// App Routes
-const router_prd = require("./api/routes/product");
-const router_sec = require("./api/routes/security");
-const router_avlt = require("./api/routes/avaliations");
-const router_cat = require("./api/routes/category");
-app.use("/api", router_prd);
-app.use("/api", router_sec);
-app.use("/api", router_avlt);
-app.use("/api", router_cat);
+// App Routes V1
+const base_path = "/api/v1",
+  router_prd = require("./api/routes/product"),
+  router_sec = require("./api/routes/security"),
+  router_avlt = require("./api/routes/avaliations"),
+  router_cat = require("./api/routes/category");
+app.use(base_path, router_prd);
+app.use(base_path, router_sec);
+app.use(base_path, router_avlt);
+app.use(base_path, router_cat);
 
 // Start server
 let port = process.env.PORT || 3000;
